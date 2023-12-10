@@ -43,9 +43,15 @@ def sync() -> int:
     return EXIT_SUCCESS
 
 
+def show_available_commands() -> int:
+    log(f"available commands: {', '.join(COMMANDS.keys())}")
+    return EXIT_SUCCESS
+
+
 COMMANDS: dict[str, Callable[[], int]] = {
     "venv": venv,
     "sync": sync,
+    "help": show_available_commands,
 }
 
 
@@ -73,10 +79,6 @@ def main() -> int:
         return EXIT_FAILURE
 
     return COMMANDS[command]()
-
-
-def show_available_commands() -> None:
-    log(f"available commands: {', '.join(COMMANDS.keys())}")
 
 
 def log(message: str = "") -> None:
